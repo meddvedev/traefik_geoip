@@ -1,0 +1,18 @@
+displayName: MaxMind GeoIP (Localized)
+
+summary: 'Allow passed localized data from MaxMind GeoIP databases downstream via HTTP request headers.'
+
+type: middleware
+
+import: github.com/meddvedev/traefik_geoip
+
+testData:
+  dbPath: 'GeoLite2-Country.mmdb'
+  debug: false
+  lang: de
+  excludeIPs:
+    - "192.168.0.0/16"
+    - "172.16.0.0/12"
+    - "10.0.0.0/8"
+    - "127.0.0.1/8"
+  setRealIP: true
