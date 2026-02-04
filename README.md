@@ -46,6 +46,8 @@ Supports both:
 - [GeoLite2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data)
 
 ## Usage
+
+### Via traefik-plugins
 cli:
 ```
 services:
@@ -72,6 +74,23 @@ http:
         geoip:
           dbpath: /var/lib/geolite/GeoLite2-City.mmdb
           lang: de
+```
+
+### Local via github
+
+```
+FROM traefik:v3.0.4
+
+COPY GeoLite2-City.mmdb /var/lib/geolite2/GeoLite2-City.mmdb
+
+RUN apk add --no-cache git && \
+    git clone --branch v0.0.1 --depth 1 https://github.com/meddvedev/traefik_geoip.git \
+      /plugins-local/src/github.com/meddvedev/traefik_geoip && \
+    apk del git
+```
+
+```
+- "--experimental.localPlugins.geoip.modulename=github.com/meddvedev/traefik_geoip"
 ```
 
 ```
